@@ -1,4 +1,5 @@
 const net = require('net');
+const fs = require('fs')
 
 
 const conn = net.createConnection({ 
@@ -9,10 +10,21 @@ const conn = net.createConnection({
 conn.setEncoding('utf8'); // interpret data as text
 
 conn.on('connect', () => {
-  conn.write('hi');
+  conn.write('you good?');
 });
-
-conn.on('data', (data) => {
-  console.log('Server says: ', data);
+let filePath = './data.txt';
+conn.on('data', (data) => {  
+  fs.writeFile(filePath, data, {flag: 'a+' }, err => {
+    if (err) {
+      console.error(err)
+      return
+    }
+    //read the file to get the size  
+    //let size = data.length  ${size} bytes 
+    let message = `Downloaded and saved to ${filePath}.`
+    console.log(message)
+    //file written successfully
+  })
+  //console.log('Server says: ', data);
 });
 

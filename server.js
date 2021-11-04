@@ -1,15 +1,15 @@
 const net = require('net');
+
 const server = net.createServer();
-
-
-const request = {
-  fileName: 0
-};
 
 
 server.listen(3000, () => {
   console.log('Server listening on port 3000!');
 });
+
+// Find a method that returns files from the server
+//socket.something should return the file and once that data is recieved by client
+//it should be ready to save the data into a new file
 
 server.on('connection', (client) => {
   console.log('New client connected!');
@@ -21,12 +21,19 @@ server.on('connection', (client) => {
       client.write('I am the server')
     } else {
       client.write('sorry')
-    }
-
-   // console.log('Message from client: ', data)
-  }); //client.write('Hello there!');
+    }//console.log('Message from client: ', data)
+  })
+  //client.write('Hello there!');
 
 });
+
+
+// let word = data
+//     if (data.includes(word){
+//       data = ../data;
+
+
+
 
 
 
