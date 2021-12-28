@@ -1,3 +1,4 @@
+const fs = require('fs');
 const net = require('net');
 
 const server = net.createServer();
@@ -15,16 +16,14 @@ server.on('connection', (client) => {
   console.log('New client connected!');
   client.setEncoding('utf8'); // interpret data as text
   client.on('data', (data) => {
-    if (data === 'hi'){
-      client.write('hello')
-    } else if ( data === 'who are you?') {
-      client.write('I am the server')
-    } else {
-      client.write('sorry')
-    }//console.log('Message from client: ', data)
-  })
-  //client.write('Hello there!');
-
+    fs.readFile(data, 'utf8', (err, content) => {
+      if (err) {
+        return err;
+      } else {
+        client.write(content);
+      }
+    });
+  });
 });
 
 
